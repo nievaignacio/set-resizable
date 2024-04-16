@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* img{  
+            object-fit: none;
+            object-position: 0 0;
+        } */
+
+        /* img{
+            object-fit: cover;
+            object-position: 0 0;
+        } */
+
+        .resizable {
+            /* display: inline-block; */
+            /* line-height: 0; */
+
+            position: relative;
+
+        }
+
+
+
+        .resizable table {
+            border-collapse: collapse;
+            border: 1px solid blue;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background-color: rgba(0,255,0,0.5);             */
+        }
+
+        .resizable table .mc {
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            text-align: right;
+            vertical-align: bottom;
+        }
+
+        .resizable table .mc span.info {
+            background-color: blue;
+            padding: 3px;
+            border-radius: 3px;
+        }
+
+        .resizable table .ml:hover,
+        .resizable table .mr:hover {
+            cursor: ew-resize;
+        }
+
+        .resizable table .bf:hover,
+        .resizable table .tr:hover {
+            cursor: nwse-resize;
+        }
+
+        .resizable table .bc:hover,
+        .resizable table .tc:hover {
+            cursor: ns-resize;
+        }
+
+        .resizable table .tl:hover,
+        .resizable table .br:hover {
+            cursor: nesw-resize;
+        }
+
+        .resizable table td {
+            padding: 5px;
+            /* outline: 1px solid red;   */
+        }
+
+        /* .resizable table td:hover {
+            background-color: blue;
+        } */
+
+        .resizable table td.mc:hover {
+            background: none;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="element" src="img/64743063.jpg" width="300" height="227">
+
+    <div id="text" style="width: 300px; height: 200px; background-color: #ccc;">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat adipisci veniam rem accusamus, dolores dolorem soluta error voluptas modi cum aliquam earum quibusdam quia in libero delectus ratione, incidunt ipsam.</p>
+    </div>
+
+    <!-- <div class="resizable">   
+        <img id="source" src="img/64743063.jpg" width="300" height="227">
+        <table>
+            <tr><td class="tr"></td><td class="tc"></td><td class="tl"></td></tr>
+            <tr><td class="mr"></td><td class="mc"></td><td class="ml"></td></tr>
+            <tr><td class="br"></td><td class="bc"></td><td class="bf"></td></tr>
+        </table>
+    </div> -->
+
+    <script>
+
+        // document.querySelector('#element').onclick = function(){
+        //     resizable(this);
+        // }
+        
+        resizable(document.querySelector('#element'));
+
+        resizable(document.querySelector('#text'));
+
+
+        function resizable(element) {
+
+            //console.log(element);
+
+            var elementCopy = element.cloneNode(true);
+
+            var frame = document.createElement('div');
+            frame.classList.add("resizable"); // add class styles
+
+            element.replaceWith(frame);
+
+            frame.appendChild(elementCopy);
+
+            frame.style.width = elementCopy.offsetWidth + "px";
+            frame.style.height = elementCopy.offsetHeight + "px";
+
+
+            var table = document.createElement('table');
+            table.innerHTML = `
+                    <tr>
+                        <td class="tr"></td>
+                        <td class="tc"></td>
+                        <td class="tl"></td>
+                    </tr>
+                    <tr>
+                        <td class="mr"></td>
+                        <td class="mc"><span class='info'> ${frame.offsetWidth},  ${frame.offsetHeight} </span></td>
+                        <td class="ml"></td>
+                    </tr>
+                    <tr>
+                        <td class="br"></td>
+                        <td class="bc"></td>
+                        <td class="bf"></td>
+                    </tr>
+            `;
+
+            frame.appendChild(table);
+
+
+            var selected = false;
+            var x, y, w, h, r = 0;
+
+
+            frame.onmousedown = function (event) {
+                event.preventDefault()
+                console.log(event);
+                x = event.clientX;
+                y = event.clientY;
+                w = frame.offsetWidth;
+                h = frame.offsetHeight;
+                r = w / h;
+                selected = event.target.className;
+            }
+
+            document.addEventListener('mousemove', function (event) {   
+                event.preventDefault()
+
+                frame.querySelector('table .mc').innerHTML = "<span class='info'> " + frame.offsetWidth + ", " + frame.offsetHeight + "</span>";
+
+                if (selected == "tc" || selected == "tr" || selected == "tl") {
+                    frame.style.height = (h - event.clientY + y) + "px";
+                    frame.querySelector('table').style.top = (event.clientY - y) + "px";
+                }
+
+                if (selected == "mr" || selected == "tr" || selected == "br") {
+                    frame.style.width = (w - event.clientX + x) + "px";
+                    frame.querySelector('table').style.left = (event.clientX - x) + "px";
+                }
+                if (selected == "ml" || selected == "bf" || selected == "tl") {
+                    frame.style.width = (w + event.clientX - x) + "px";
+                }
+                if (selected == "bc" || selected == "bf" || selected == "br") {
+                    frame.style.height = (h + event.clientY - y) + "px";
+                }
+
+            });
+
+            document.addEventListener('mouseup', function (event) {  
+                //console.log(event);
+                selected = false;
+
+                frame.querySelector('table').style.top = 0 + "px";
+                frame.querySelector('table').style.left = 0 + "px";
+
+                //resize
+                elementCopy.style.width = frame.offsetWidth + "px";
+                elementCopy.style.height = frame.offsetHeight + "px";
+
+
+            });
+
+        }
+
+
+    </script>
+</body>
+
+</html>
