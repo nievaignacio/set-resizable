@@ -88,7 +88,7 @@
 </head>
 
 <body>
-    <img id="element" src="img/64743063.jpg" width="300" height="227">
+    <img id="element" src="img/64743063.jpg" width="300" height="227" class="resizable">
 
     <div id="text" style="width: 300px; height: 200px; background-color: #ccc;">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat adipisci veniam rem accusamus, dolores dolorem soluta error voluptas modi cum aliquam earum quibusdam quia in libero delectus ratione, incidunt ipsam.</p>
@@ -105,18 +105,17 @@
 
     <script>
 
-        // document.querySelector('#element').onclick = function(){
-        //     resizable(this);
-        // }
+        document.querySelector('#element').onclick = function(){
+            console.log(this);
+            resizable(this);
+        }
         
-        resizable(document.querySelector('#element'));
+       // resizable(document.querySelector('#element'));
 
-        resizable(document.querySelector('#text'));
+       resizable(document.querySelector('#text'));
 
 
         function resizable(element) {
-
-            //console.log(element);
 
             var elementCopy = element.cloneNode(true);
 
@@ -192,7 +191,9 @@
             });
 
             document.addEventListener('mouseup', function (event) {  
-                //console.log(event);
+               // 
+
+               if(frame){console.log(event);
                 selected = false;
 
                 frame.querySelector('table').style.top = 0 + "px";
@@ -201,8 +202,18 @@
                 //resize
                 elementCopy.style.width = frame.offsetWidth + "px";
                 elementCopy.style.height = frame.offsetHeight + "px";
+               }
+                
 
 
+            });
+
+            document.addEventListener('click', function (event) {  
+               
+                if (event.target.className !== "resizable" && !frame.contains(event.target)) {
+                     console.log('click out');
+                    frame.replaceWith(elementCopy.cloneNode(true));
+                }
             });
 
         }
