@@ -1,0 +1,71 @@
+:root{
+    --color:blue;
+}
+
+.resizable {
+    /* display: inline-block; */
+    /* line-height: 0; */
+
+    display: var(--display);
+    position: relative;
+
+}
+
+.resizable table {
+    border-collapse: collapse;
+    border: 1px solid var(--color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(0,255,0,0.5);     */
+}
+
+.resizable table .c {
+    width: 100%;
+    height: 100%;
+}
+
+.resizable table .c span.info {
+    color: #fff;
+    background-color: var(--color);
+    padding: 3px;
+    border-radius: 3px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.resizable table .w:hover,
+.resizable table .e:hover {
+    cursor: ew-resize;
+}
+
+.resizable table .s.e:hover,
+.resizable table .n.w:hover {
+    cursor: nwse-resize;
+}
+
+.resizable table .s:hover,
+.resizable table .n:hover {
+    cursor: ns-resize;
+}
+
+.resizable table .n.e:hover,
+.resizable table .s.w:hover {
+    cursor: nesw-resize;
+}
+
+.resizable table td {
+    padding: 5px;
+    /* outline: 1px solid red;   */
+}
+
+/* .resizable table td:hover {
+    background-color: blue;
+} 
+
+.resizable table td.mc:hover {
+    background: none;
+}*/
