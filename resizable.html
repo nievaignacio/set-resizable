@@ -53,6 +53,7 @@
             <td>Mexico</td>
         </tr>
     </table>
+    
 
     
     <script src="resizable.js"></script>
@@ -63,7 +64,7 @@
         }
 
         document.querySelector('#text').onclick = function () {
-            resizable(this, {color:"red"});
+            resizable(this, {color:"red", minSize:"100px"});
         }
 
 

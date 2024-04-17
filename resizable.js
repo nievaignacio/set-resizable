@@ -3,12 +3,15 @@ function resizable(element, options = {}) {
 
     var info = options.info != null? options.info : true;
     var color = options.color || "Blue";
+    var minSize = options.minSize || "40px";
 
     var display = window.getComputedStyle(element, null).display;
     if(display == "inline") display = "inline-block";    
 
     document.querySelector(':root').style.setProperty('--color', color);
     document.querySelector(':root').style.setProperty('--display', display);
+    document.querySelector(':root').style.setProperty('--min-size', minSize);
+
 
     var frame = document.createElement('div');
     frame.classList.add("resizable"); // add class styles

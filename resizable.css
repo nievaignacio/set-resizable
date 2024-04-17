@@ -5,6 +5,8 @@
 .resizable {
     display: var(--display);
     position: relative;
+    min-width: var(--min-size);
+    min-height: var(--min-size);
 }
 
 .resizable table {
