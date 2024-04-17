@@ -88,7 +88,7 @@
 </head>
 
 <body>
-    <img id="element" src="img/64743063.jpg" width="300" height="227" class="resizable">
+    <img id="element" src="img/64743063.jpg" width="300" height="227">
 
     <div id="text" style="width: 300px; height: 200px; background-color: #ccc;">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat adipisci veniam rem accusamus, dolores dolorem soluta error voluptas modi cum aliquam earum quibusdam quia in libero delectus ratione, incidunt ipsam.</p>
@@ -106,28 +106,35 @@
     <script>
 
         document.querySelector('#element').onclick = function(){
-            console.log(this);
+          //  console.log(this);
             resizable(this);
         }
+
+        document.querySelector('#text').onclick = function(){
+         //   console.log(this);
+            resizable(this);
+        }
+
+
         
        // resizable(document.querySelector('#element'));
 
-       resizable(document.querySelector('#text'));
+       //resizable(document.querySelector('#text'));
 
 
         function resizable(element) {
 
-            var elementCopy = element.cloneNode(true);
+           // var elementCopy = element.cloneNode(true);
 
             var frame = document.createElement('div');
             frame.classList.add("resizable"); // add class styles
 
             element.replaceWith(frame);
 
-            frame.appendChild(elementCopy);
+            frame.appendChild(element);
 
-            frame.style.width = elementCopy.offsetWidth + "px";
-            frame.style.height = elementCopy.offsetHeight + "px";
+            frame.style.width = element.offsetWidth + "px";
+            frame.style.height = element.offsetHeight + "px";
 
 
             var table = document.createElement('table');
@@ -139,7 +146,7 @@
                     </tr>
                     <tr>
                         <td class="mr"></td>
-                        <td class="mc"><span class='info'> ${frame.offsetWidth},  ${frame.offsetHeight} </span></td>
+                        <td class="mc"><span class='info'> ${frame.offsetWidth},  ${frame.offsetHeight} px</span></td>
                         <td class="ml"></td>
                     </tr>
                     <tr>
@@ -158,7 +165,7 @@
 
             frame.onmousedown = function (event) {
                 event.preventDefault()
-                console.log(event);
+             //   console.log(event);
                 x = event.clientX;
                 y = event.clientY;
                 w = frame.offsetWidth;
@@ -170,7 +177,7 @@
             document.addEventListener('mousemove', function (event) {   
                 event.preventDefault()
 
-                frame.querySelector('table .mc').innerHTML = "<span class='info'> " + frame.offsetWidth + ", " + frame.offsetHeight + "</span>";
+                frame.querySelector('table .mc').innerHTML = `<span class="info"> ${frame.offsetWidth},  ${frame.offsetHeight} px</span>`;
 
                 if (selected == "tc" || selected == "tr" || selected == "tl") {
                     frame.style.height = (h - event.clientY + y) + "px";
@@ -191,17 +198,17 @@
             });
 
             document.addEventListener('mouseup', function (event) {  
-               // 
-
-               if(frame){console.log(event);
+               if(selected){
+                
+                //console.log(event);
                 selected = false;
 
                 frame.querySelector('table').style.top = 0 + "px";
                 frame.querySelector('table').style.left = 0 + "px";
 
                 //resize
-                elementCopy.style.width = frame.offsetWidth + "px";
-                elementCopy.style.height = frame.offsetHeight + "px";
+                element.style.width = frame.offsetWidth + "px";
+                element.style.height = frame.offsetHeight + "px";
                }
                 
 
@@ -209,10 +216,9 @@
             });
 
             document.addEventListener('click', function (event) {  
-               
-                if (event.target.className !== "resizable" && !frame.contains(event.target)) {
-                     console.log('click out');
-                    frame.replaceWith(elementCopy.cloneNode(true));
+                if (!frame.contains(event.target)) {
+                    // console.log('click out');
+                    frame.replaceWith(element);
                 }
             });
 
