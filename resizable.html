@@ -19,18 +19,22 @@
         <li>Optional dimensions info.</li>
     </ul>
 
-    <h2>Image</h2>
+    <h2>Examples</h2>
+    
+    <p>Click enable resize:</p>
+
+    <h3>Image</h3>
 
     <img id="element" src="img/64743063.jpg" width="300" height="227"> 
 
-    <h2>Div</h2>
+    <h3>Div</h3>
     <div id="text" style="width: 300px; height: 200px; background-color: #ccc;">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat adipisci veniam rem accusamus, dolores
             dolorem soluta error voluptas modi cum aliquam earum quibusdam quia in libero delectus ratione, incidunt
             ipsam.</p>
     </div>
 
-    <!-- <h2>Table</h2>
+    <h3>Table</h3>
 
     <table id="table">
         <tr>
@@ -48,8 +52,9 @@
             <td>Francisco Chang</td>
             <td>Mexico</td>
         </tr>
-    </table> -->
+    </table>
 
+    
     <script src="resizable.js"></script>
     <script>
 
@@ -62,14 +67,13 @@
         }
 
 
-        // document.querySelector('#table').onclick = function () {
-        //     resizable(this);
-        // }
+        document.querySelector('#table').onclick = function () {
+            resizable(this);
+        }
 
         // resizable(document.querySelector('#element'));
 
         //resizable(document.querySelector('#text'));
-
 
     </script>
 </body>
