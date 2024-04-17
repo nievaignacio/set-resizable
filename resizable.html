@@ -159,7 +159,7 @@
             frame.appendChild(table);
 
 
-            var selected = false;
+            var selected, shift = false;
             var x, y, w, h, r = 0;
 
 
@@ -174,26 +174,50 @@
                 selected = event.target.className;
             }
 
+            document.addEventListener('keydown', function (event) { 
+                if (event.shiftKey){
+                   shift = true; 
+                }
+            });
+
+            document.addEventListener('keyup', function (event) { 
+                if (event.key == "Shift"){
+                    shift = false; 
+                }
+            });
+
             document.addEventListener('mousemove', function (event) {   
                 event.preventDefault()
 
                 frame.querySelector('table .mc').innerHTML = `<span class="info"> ${frame.offsetWidth},  ${frame.offsetHeight} px</span>`;
 
-                if (selected == "tc" || selected == "tr" || selected == "tl") {
-                    frame.style.height = (h - event.clientY + y) + "px";
-                    frame.querySelector('table').style.top = (event.clientY - y) + "px";
-                }
-
-                if (selected == "mr" || selected == "tr" || selected == "br") {
-                    frame.style.width = (w - event.clientX + x) + "px";
-                    frame.querySelector('table').style.left = (event.clientX - x) + "px";
-                }
                 if (selected == "ml" || selected == "bf" || selected == "tl") {
                     frame.style.width = (w + event.clientX - x) + "px";
+                    if(shift) frame.style.height = (frame.offsetWidth / r) + "px";  
                 }
                 if (selected == "bc" || selected == "bf" || selected == "br") {
                     frame.style.height = (h + event.clientY - y) + "px";
+                    if(shift) frame.style.width = (frame.offsetHeight * r) + "px";
                 }
+                if (selected == "tc" || selected == "tr" || selected == "tl") {
+                    frame.style.height = (h - event.clientY + y) + "px";
+                    frame.querySelector('table').style.top = (event.clientY - y) + "px";
+                    if(shift) {
+                        if(shift) 
+                        frame.style.width = (frame.offsetHeight * r) + "px";
+                        frame.querySelector('table').style.left = (event.clientY - y) * r + "px";
+                    }
+                }
+                if (selected == "mr" || selected == "tr" || selected == "br") {
+                    frame.style.width = (w - event.clientX + x) + "px";
+                    frame.querySelector('table').style.left = (event.clientX - x) + "px";
+                    if(shift) {
+                        if(shift) 
+                        frame.style.height = (frame.offsetWidth / r) + "px"; 
+                        frame.querySelector('table').style.top =  (event.clientX - x)  / r + "px";
+                    }
+                }
+
 
             });
 
