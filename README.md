@@ -41,8 +41,9 @@ Link
 
 | Parameter | Default | Description                                         |
 | :---------- | --------- | ----------------------------------------------------- |
-| SelectMode | "click" | Event to listen for enable resizing.                |
-| Color      | "blue"  | CSS color value for accent.                         |
+| active | False | Auto enable resizing. |
+| color      | "blue"  | CSS color value for accent.                         |
+| info | True | Boolean visibility of width and height data values. |
 | minSize    | "40px"  | Minimun value for width and height resize.          |
-| Info | True | Boolean visibility of width and height data values. |
+| selectMode | "click" | Event to listen for enable resizing.                |
 

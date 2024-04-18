@@ -4,12 +4,13 @@ function resizable(element, options = {}) {
     var info = options.info != null? options.info : true;
     var color = options.color || "Blue";
     var minSize = options.minSize || "40px";
+    var active = options.active;
+
     var display = window.getComputedStyle(element, null).display;
     if(display == "inline") display = "inline-block";    
 
     var frame = document.createElement('div');
     frame.classList.add("resizable"); // add class styles
-    
 
     element.addEventListener(selectMode, function () {
 
@@ -49,6 +50,9 @@ function resizable(element, options = {}) {
 
     });
 
+    if(active) {
+        element.dispatchEvent(new Event(selectMode))
+    }
 
     var selected, shift = false;
     var x, y, w, h, r = 0;
