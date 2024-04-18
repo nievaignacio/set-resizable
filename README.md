@@ -29,7 +29,7 @@ Link
     <script src="resizable.js"></script>
     
     <script>
-        resizable(document.querySelector('#element'),{color:"#000"});
+        resizable(document.querySelector('#element'),{active:true});
     </script>
     
 </body>
@@ -41,9 +41,9 @@ Link
 
 | Parameter | Default | Description                                         |
 | :---------- | --------- | ----------------------------------------------------- |
-| active | False | Auto enable resizing. |
+| active | false | Auto enable resizing. |
 | color      | "blue"  | CSS color value for accent.                         |
-| info | True | Boolean visibility of width and height data values. |
+| info | true | Boolean visibility of width and height data values. |
 | minSize    | "40px"  | Minimun value for width and height resize.          |
 | selectMode | "click" | Event to listen for enable resizing.                |
 
