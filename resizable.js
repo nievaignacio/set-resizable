@@ -1,50 +1,53 @@
 function resizable(element, options = {}) {
 
-
+    var selectMode = options.selectMode || "click";
     var info = options.info != null? options.info : true;
     var color = options.color || "Blue";
     var minSize = options.minSize || "40px";
-
     var display = window.getComputedStyle(element, null).display;
     if(display == "inline") display = "inline-block";    
 
-    document.querySelector(':root').style.setProperty('--color', color);
-    document.querySelector(':root').style.setProperty('--display', display);
-    document.querySelector(':root').style.setProperty('--min-size', minSize);
-
-
     var frame = document.createElement('div');
     frame.classList.add("resizable"); // add class styles
+    
 
-    element.replaceWith(frame);
+    element.addEventListener(selectMode, function () {
 
-    frame.appendChild(element);
+        document.querySelector(':root').style.setProperty('--color', color);
+        document.querySelector(':root').style.setProperty('--display', display);
+        document.querySelector(':root').style.setProperty('--min-size', minSize);
 
-    frame.style.width = element.offsetWidth + "px";
-    frame.style.height = element.offsetHeight + "px";
+        element.replaceWith(frame);
 
-    if(info) info = `<span class='info'> ${frame.offsetWidth} &#215;  ${frame.offsetHeight} px</span>`;
+        frame.appendChild(element);
 
-    var table = document.createElement('table');
-    table.innerHTML = `
-            <tr>
-                <td class="n w"></td>
-                <td class="n"></td>
-                <td class="n e"></td>
-            </tr>
-            <tr>
-                <td class="w"></td>
-                <td class="c">${info}</td>
-                <td class="e"></td>
-            </tr>
-            <tr>
-                <td class="s w"></td>
-                <td class="s"></td>
-                <td class="s e"></td>
-            </tr>
-    `;
+        frame.style.width = element.offsetWidth + "px";
+        frame.style.height = element.offsetHeight + "px";
 
-    frame.appendChild(table);
+        if(info) info = `<span class='info'> ${frame.offsetWidth} &#215;  ${frame.offsetHeight} px</span>`;
+
+        var table = document.createElement('table');
+        table.innerHTML = `
+                <tr>
+                    <td class="n w"></td>
+                    <td class="n"></td>
+                    <td class="n e"></td>
+                </tr>
+                <tr>
+                    <td class="w"></td>
+                    <td class="c">${info}</td>
+                    <td class="e"></td>
+                </tr>
+                <tr>
+                    <td class="s w"></td>
+                    <td class="s"></td>
+                    <td class="s e"></td>
+                </tr>
+        `;
+
+        frame.appendChild(table);
+
+    });
 
 
     var selected, shift = false;

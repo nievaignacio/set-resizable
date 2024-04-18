@@ -51,22 +51,9 @@
     <script src="resizable.js"></script>
     <script>
 
-        document.querySelector('#element').onclick = function () {
-            resizable(this);
-        }
-
-        document.querySelector('#text').onclick = function () {
-            resizable(this, {color:"red", minSize:"100px"});
-        }
-
-
-        document.querySelector('#table').onclick = function () {
-            resizable(this);
-        }
-
-        // resizable(document.querySelector('#element'));
-
-        //resizable(document.querySelector('#text'));
+        resizable(document.querySelector('#element'));
+        resizable(document.querySelector('#text'), {color:"red"});
+        resizable(document.querySelector('#table'));
 
     </script>
 </body>
