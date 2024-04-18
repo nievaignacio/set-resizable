@@ -18,17 +18,12 @@ function resizable(element, options = {}) {
         document.querySelector(':root').style.setProperty('--display', display);
         document.querySelector(':root').style.setProperty('--min-size', minSize);
 
+        if(info) info = `<span class='info'> ${element.offsetWidth} &#215;  ${element.offsetHeight} px</span>`;
+
         element.replaceWith(frame);
 
-        frame.appendChild(element);
-
-        frame.style.width = element.offsetWidth + "px";
-        frame.style.height = element.offsetHeight + "px";
-
-        if(info) info = `<span class='info'> ${frame.offsetWidth} &#215;  ${frame.offsetHeight} px</span>`;
-
-        var table = document.createElement('table');
-        table.innerHTML = `
+        frame.innerHTML = `
+            <table>
                 <tr>
                     <td class="n w"></td>
                     <td class="n"></td>
@@ -44,9 +39,13 @@ function resizable(element, options = {}) {
                     <td class="s"></td>
                     <td class="s e"></td>
                 </tr>
+            </table>
         `;
 
-        frame.appendChild(table);
+        frame.prepend(element);
+        
+        frame.style.width = element.offsetWidth + "px";
+        frame.style.height = element.offsetHeight + "px";
 
     });
 
@@ -61,7 +60,7 @@ function resizable(element, options = {}) {
 
     frame.onmousedown = function (event) {
         event.preventDefault();
-        event.stopPropagation();
+        //event.stopPropagation();
         //   console.log(event);
         x = event.clientX;
         y = event.clientY;
@@ -84,7 +83,7 @@ function resizable(element, options = {}) {
     });
 
     document.addEventListener('mousemove', function (event) {
-        event.preventDefault()
+        event.preventDefault();
 
         if (selected) {
            
