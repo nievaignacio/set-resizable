@@ -51,7 +51,8 @@ function resizable(element, options = {}) {
     });
 
     if(active) {
-        element.dispatchEvent(new Event(selectMode))
+        element.dispatchEvent(new Event(selectMode));
+        active = false;
     }
 
     var selected, shift = false;
