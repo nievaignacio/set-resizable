@@ -11,6 +11,7 @@ export default function resizable(element, options = {}) {
     var color = options.color || "Blue";
     var minSize = options.minSize || "40px";
     var active = options.active;
+    var overflow = options.overflow || "auto";
 
     var display = window.getComputedStyle(element, null).display;
     if(display == "inline") display = "inline-block";    
@@ -134,6 +135,7 @@ export default function resizable(element, options = {}) {
             frame.querySelector('table').style.top = 0 + "px";
             frame.querySelector('table').style.left = 0 + "px";
             element.style.boxSizing = 'border-box';
+            element.style.overflow = overflow;
             element.style.width = frame.offsetWidth + "px";
             element.style.height = frame.offsetHeight + "px";
         }
