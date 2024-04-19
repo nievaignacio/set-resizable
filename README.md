@@ -1,15 +1,53 @@
 # Resizable
 
-Advanced resize for images and HTML elements.
+Advanced resize for images and HTML elements with vanilla JS. 
 
 * Supports any display that accepts width and height.
 * Keep ratio with Shift key.
 
-## Demo
+## Instalation
 
-Link
+```
+$ npm install resizable --save
+```
 
-## Usage
+## Quick Start
+
+### Include
+
+- **CommonJS module require**:
+
+  ```js
+  const resizable = require('resizable');
+  // ...
+   resizable(element, options);
+  ```
+
+- **AMD module require**:
+
+  ```js
+  require(['resizable'], function (resizable) {
+    // ...
+   resizable(element, options);
+  });
+  ```
+
+- **script tag**:
+
+  ```html
+  <!DOCTYPE html>
+  <html>
+    ...
+    <script src="https://example.org/resizable.js"></script>
+    <script>
+      // ...
+      // Global function
+     	 resizable(element, options);
+    </script>
+  </html>
+  ```
+
+## Example
 
 ```html
 <!DOCTYPE html>
@@ -18,15 +56,12 @@ Link
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resizable</title>
-    
-    <link rel="stylesheet" href="resizable.css">
-    
 </head>
 <body>
     
     <img id="element" src="img/64743063.jpg" width="300" height="227"> 
     
-    <script src="resizable.js"></script>
+    <script src="resizable.min.js"></script>
     
     <script>
         resizable(document.querySelector('#element'),{active:true});
@@ -36,14 +71,18 @@ Link
 </html>
 ```
 
+Live Demo
+
 ## Options
 
 
-| Parameter | Default | Description                                         |
-| :---------- | --------- | ----------------------------------------------------- |
-| active | false | Auto enable resizing. |
-| color      | "blue"  | CSS color value for accent.                         |
-| info | true | Boolean visibility of width and height data values. |
-| minSize    | "40px"  | Minimun value for width and height resize.          |
-| selectMode | "click" | Event to listen for enable resizing.                |
+| Parameter   | Default | Description                                         |
+| :---------- | ------- | --------------------------------------------------- |
+| active      | false   | Auto enable resizing.                               |
+| activeEvent | "click" | Event to listen for enable resizing.                |
+| color       | "blue"  | CSS color value for accent.                         |
+| info        | true    | Boolean visibility of width and height data values. |
+| minSize     | "40px"  | Minimun value for width and height resize.          |
+
+
 

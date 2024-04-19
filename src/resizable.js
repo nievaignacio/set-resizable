@@ -6,11 +6,11 @@ export default function resizable(element, options = {}) {
 // for browser    
 // function resizable(element, options = {}) {
 
-    var selectMode = options.selectMode || "click";
+    var active = options.active;
+    var activeEvent = options.activeEvent || "click";
     var info = options.info != null? options.info : true;
     var color = options.color || "Blue";
     var minSize = options.minSize || "40px";
-    var active = options.active;
     var overflow = options.overflow || "auto";
 
     var display = window.getComputedStyle(element, null).display;
@@ -19,7 +19,7 @@ export default function resizable(element, options = {}) {
     var frame = document.createElement('div');
     frame.classList.add("resizable"); // add class styles
 
-    element.addEventListener(selectMode, function () {
+    element.addEventListener(activeEvent, function () {
 
         document.querySelector(':root').style.setProperty('--color', color);
         document.querySelector(':root').style.setProperty('--display', display);
@@ -57,7 +57,7 @@ export default function resizable(element, options = {}) {
     });
 
     if(active) {
-        element.dispatchEvent(new Event(selectMode));
+        element.dispatchEvent(new Event(activeEvent));
         active = false;
     }
 
