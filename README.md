@@ -14,8 +14,6 @@ $ npm install resizable --save
 
 ## Quick Start
 
-### Include
-
 - **ES6 module import**:
 
   ```js
