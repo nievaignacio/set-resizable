@@ -1,17 +1,17 @@
 :root{
-    --color:blue;
+    --resizable-color:blue;
 }
 
 .resizable {
-    display: var(--display);
+    display: var(--resizable-display);
     position: relative;
-    min-width: var(--min-size);
-    min-height: var(--min-size);
+    min-width: var(--resizable-min-size);
+    min-height: var(--resizable-min-size);
 }
 
 .resizable table {
     border-collapse: collapse;
-    border: 1px solid var(--color);
+    border: 1px solid var(--resizable-color);
     position: absolute;
     top: 0;
     left: 0;
@@ -26,7 +26,7 @@
 
 .resizable table .c span.info {
     color: #fff;
-    background-color: var(--color);
+    background-color: var(--resizable-color);
     padding: 3px;
     border-radius: 3px;
     position: absolute;

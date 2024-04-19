@@ -21,9 +21,9 @@ export default function resizable(element, options = {}) {
 
     element.addEventListener(activeEvent, function () {
 
-        document.querySelector(':root').style.setProperty('--color', color);
-        document.querySelector(':root').style.setProperty('--display', display);
-        document.querySelector(':root').style.setProperty('--min-size', minSize);
+        document.querySelector(':root').style.setProperty('--resizable-color', color);
+        document.querySelector(':root').style.setProperty('--resizable-display', display);
+        document.querySelector(':root').style.setProperty('--resizable-min-size', minSize);
 
         if(info) info = `<span class='info'> ${element.offsetWidth} &#215;  ${element.offsetHeight} px</span>`;
 
