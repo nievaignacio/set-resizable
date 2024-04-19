@@ -16,6 +16,14 @@ $ npm install resizable --save
 
 ### Include
 
+- **ES6 module import**:
+
+  ```js
+  import resizable from 'resizable';
+  // ...
+   resizable(element, options);
+  ```
+
 - **CommonJS module require**:
 
   ```js
