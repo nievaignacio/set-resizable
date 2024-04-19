@@ -1,9 +1,10 @@
 # Resizable
 
-Advanced resize for images and HTML elements with vanilla JS. 
+Make any HTML elements resizable.
 
-* Supports any display that accepts width and height.
-* Keep ratio with Shift key.
+* Supports Images.
+* Supports any display property value that accepts width and height.
+* Supoorts Shift key for keep ratio.
 
 ## Instalation
 
@@ -38,7 +39,7 @@ $ npm install resizable --save
   <!DOCTYPE html>
   <html>
     ...
-    <script src="https://example.org/resizable.js"></script>
+    <script src="resizable.js"></script>
     <script>
       // ...
       // Global function
