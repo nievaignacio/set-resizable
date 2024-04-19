@@ -56,29 +56,7 @@ $ npm install resizable --save
   </html>
   ```
 
-## Example
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resizable</title>
-</head>
-<body>
-    
-    <img id="element" src="img/64743063.jpg" width="300" height="227"> 
-    
-    <script src="resizable.min.js"></script>
-    
-    <script>
-        resizable(document.querySelector('#element'),{active:true});
-    </script>
-    
-</body>
-</html>
-```
+## Demo
 
 Live Demo
 
