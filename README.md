@@ -1,6 +1,6 @@
 # Resizable
 
-Make any HTML elements resizable.
+Make any HTML element resizable.
 
 * Supports Images.
 * Supports any display property value that accepts width and height.
