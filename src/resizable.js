@@ -1,4 +1,10 @@
-function resizable(element, options = {}) {
+// for webpack
+
+import "./resizable.css";
+export default function resizable(element, options = {}) {
+
+// for browser    
+// function resizable(element, options = {}) {
 
     var selectMode = options.selectMode || "click";
     var info = options.info != null? options.info : true;
@@ -127,6 +133,7 @@ function resizable(element, options = {}) {
             selected = false;
             frame.querySelector('table').style.top = 0 + "px";
             frame.querySelector('table').style.left = 0 + "px";
+            element.style.boxSizing = 'border-box';
             element.style.width = frame.offsetWidth + "px";
             element.style.height = frame.offsetHeight + "px";
         }
@@ -139,3 +146,4 @@ function resizable(element, options = {}) {
     });
 
 }
+

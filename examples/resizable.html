@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resizable</title>
-
-    <link rel="stylesheet" href="resizable.css">
   
 </head>
 
@@ -17,10 +15,11 @@
 
     <h2>Image</h2>
 
-    <img id="element" src="img/64743063.jpg" width="300" height="227"> 
+    <img id="image1" src="img/64743063.jpg" width="300" height="200"> 
+    <img id="image2" src="img/23534627.jpg" width="200" height="150"> 
 
     <h2>Div</h2>
-    <div id="text" style="width: 300px; height: 200px; background-color: #ccc;">
+    <div id="text" style="width: 400px; background-color: #ccc; padding:20px;">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat adipisci veniam rem accusamus, dolores
             dolorem soluta error voluptas modi cum aliquam earum quibusdam quia in libero delectus ratione, incidunt
             ipsam.</p>
@@ -48,10 +47,13 @@
     
 
     
-    <script src="resizable.js"></script>
+    <script src="../dist/resizable.min.js"></script>
     <script>
 
-        resizable(document.querySelector('#element'), {active:true});
+        console.log(resizable);
+
+        resizable(document.querySelector('#image1'), {active:true});
+        resizable(document.querySelector('#image2'));
         resizable(document.querySelector('#text'), {color:"red"});
         resizable(document.querySelector('#table'));
 
