@@ -66,7 +66,7 @@ export default function resizable(element, options = {}) {
 
 
     frame.onmousedown = function (event) {
-        event.preventDefault();
+        //event.preventDefault();
         //event.stopPropagation();
         //   console.log(event);
         x = event.clientX;
