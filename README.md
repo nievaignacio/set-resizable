@@ -8,16 +8,23 @@ A small JS library to convert any HTML element into a resizable element.
 * Support images
 * Support Shift key to keep ratio
 
+## Demo
+
+Live demo
+
 ## Instalation
 
 ```
 $ npm install resizable --save
 ```
-Or download dist file:
 
-resizable.min.js
+Or just download the dist file:
+
+[resizable.min.js](https://github.com/nievaignacio/resizable/tree/main/dist)
 
 ## Quick Start
+
+### Include:
 
 - **ES6 module import**:
 
@@ -53,15 +60,22 @@ resizable.min.js
     <script src="resizable.js"></script>
     <script>
       // ...
-      // Global function
      	 resizable(element, options);
     </script>
   </html>
   ```
 
-## Demo
+### Initialize
 
-Live Demo
+```
+var element = document.querySelector('#element');
+
+Var options = {
+	active: true
+}
+
+resizable(element, options);
+```
 
 ## Options
 
@@ -74,5 +88,4 @@ Live Demo
 | info        | true    | Visibility of width and height data values.         |
 | minSize     | "40px"  | Minimun value for width and height resize.          |
 | overflow     | "auto"  | Set CSS overflow property for element.       |
-
 
