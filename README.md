@@ -65,9 +65,9 @@ Live Demo
 | :---------- | ------- | --------------------------------------------------- |
 | active      | false   | Auto enable resizing.                               |
 | activeEvent | "click" | Event to listen for enable resizing.                |
-| color       | "blue"  | CSS color value for accent.                         |
+| color       | "blue"  | set CSS color property for accent element.                     |
 | info        | true    | Visibility of width and height data values.         |
 | minSize     | "40px"  | Minimun value for width and height resize.          |
-
+| overflow     | "auto"  | Set CSS overflow property for element.       |
 
 
