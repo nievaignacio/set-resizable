@@ -1,16 +1,21 @@
 # Resizable
 
-Make any HTML element resizable.
+A small JS library to convert any HTML element into a resizable element.
 
-* Supports Images.
-* Supports any display property value that accepts width and height.
-* Supoorts Shift key for keep ratio.
+## Features
+
+* Vanilla JS
+* Support images
+* Support Shift key to keep ratio
 
 ## Instalation
 
 ```
 $ npm install resizable --save
 ```
+Or download dist file:
+
+resizable.min.js
 
 ## Quick Start
 
@@ -65,7 +70,7 @@ Live Demo
 | :---------- | ------- | --------------------------------------------------- |
 | active      | false   | Auto enable resizing.                               |
 | activeEvent | "click" | Event to listen for enable resizing.                |
-| color       | "blue"  | set CSS color property for accent element.                     |
+| color       | "blue"  | Set CSS color property for accent element.                     |
 | info        | true    | Visibility of width and height data values.         |
 | minSize     | "40px"  | Minimun value for width and height resize.          |
 | overflow     | "auto"  | Set CSS overflow property for element.       |
