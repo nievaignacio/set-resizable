@@ -58,7 +58,7 @@ setResizable(element, options);
 <!DOCTYPE html>
 <html>
   ...
-  <script src="set-resizable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/set-resizable/dist/set-resizable.min.js"></script>
   <script>
         var element = document.querySelector('#element');
       
