@@ -34,22 +34,7 @@ Or just download the dist file:
    setResizable(element, options);
   ```
 
-- **CommonJS module require**:
-
-  ```js
-  const setResizable = require('set-resizable');
-  // ...
-   setResizable(element, options);
-  ```
-
-- **AMD module require**:
-
-  ```js
-  require(['setResizable'], function (set-resizable) {
-    // ...
-   setResizable(element, options);
-  });
-  ```
+or
 
 - **script tag**:
 

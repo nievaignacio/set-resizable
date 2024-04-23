@@ -1,6 +1,6 @@
 {
   "name": "set-resizable",
-  "description": "Advanced resize for images and HTML elements.",
+  "description": "A small JS library to convert any HTML element into a resizable element.",
   "version": "1.0.0",
   "main": "./src/set-resizable.js",
   "directories": {
