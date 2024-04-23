@@ -62,7 +62,7 @@ setResizable(element, options);
             active: true
         }
         
-   		 setResizable(element, options);
+   		setResizable(element, options);
   </script>
 </html>
 ```
