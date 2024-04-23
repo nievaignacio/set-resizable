@@ -15,12 +15,12 @@ Live demo
 ## Instalation
 
 ```
-$ npm install resizable --save
+$ npm install set-resizable --save
 ```
 
 Or just download the dist file:
 
-[resizable.min.js](https://github.com/nievaignacio/resizable/tree/main/dist)
+[set-resizable.min.js](https://github.com/nievaignacio/resizable/tree/main/dist)
 
 ## Quick Start
 
@@ -29,25 +29,25 @@ Or just download the dist file:
 - **ES6 module import**:
 
   ```js
-  import resizable from 'resizable';
+  import setResizable from 'set-resizable';
   // ...
-   resizable(element, options);
+   setResizable(element, options);
   ```
 
 - **CommonJS module require**:
 
   ```js
-  const resizable = require('resizable');
+  const setResizable = require('set-resizable');
   // ...
-   resizable(element, options);
+   setResizable(element, options);
   ```
 
 - **AMD module require**:
 
   ```js
-  require(['resizable'], function (resizable) {
+  require(['setResizable'], function (set-resizable) {
     // ...
-   resizable(element, options);
+   setResizable(element, options);
   });
   ```
 
@@ -57,10 +57,10 @@ Or just download the dist file:
   <!DOCTYPE html>
   <html>
     ...
-    <script src="resizable.js"></script>
+    <script src="set-resizable.min.js"></script>
     <script>
       // ...
-     	 resizable(element, options);
+     	 setResizable(element, options);
     </script>
   </html>
   ```
@@ -74,7 +74,7 @@ var options = {
 	active: true
 }
 
-resizable(element, options);
+setResizable(element, options);
 ```
 
 ## Options
