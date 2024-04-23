@@ -8,58 +8,63 @@ A small JS library to convert any HTML element into a resizable element.
 * Support images
 * Support Shift key to keep ratio
 
-## Demo
+## Demos
 
 [Live demo](https://nievaignacio.github.io/set-resizable/examples/)
 
-## Instalation
+<a href="https://stackblitz.com/edit/js-vixsu9?file=index.js">
+  <img
+    width="160"
+    alt="Open in StackBlitz"
+    src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
+  />
+</a>
+
+## Install
+
+**NPM**
 
 ```
 $ npm install set-resizable --save
 ```
 
-Or just download the dist file:
+just download the dist file:
 
 [set-resizable.min.js](https://github.com/nievaignacio/resizable/tree/main/dist)
 
-## Quick Start
+## Usage
 
-### Include:
+**ES6:**
 
-- **ES6 module import**:
+```js
+import setResizable from 'set-resizable';
 
-  ```js
-  import setResizable from 'set-resizable';
-  // ...
-   setResizable(element, options);
-  ```
-
-or
-
-- **script tag**:
-
-  ```html
-  <!DOCTYPE html>
-  <html>
-    ...
-    <script src="set-resizable.min.js"></script>
-    <script>
-      // ...
-     	 setResizable(element, options);
-    </script>
-  </html>
-  ```
-
-### Initialize
-
-```
 var element = document.querySelector('#element');
 
 var options = {
 	active: true
 }
 
-resizable(element, options);
+setResizable(element, options);
+```
+
+**Script tag:**
+
+```html
+<!DOCTYPE html>
+<html>
+  ...
+  <script src="set-resizable.min.js"></script>
+  <script>
+        var element = document.querySelector('#element');
+      
+        var options = {
+            active: true
+        }
+        
+   		 setResizable(element, options);
+  </script>
+</html>
 ```
 
 ## Options
