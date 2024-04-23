@@ -1,4 +1,4 @@
-# Resizable
+# setResizable
 
 A small JS library to convert any HTML element into a resizable element.
 
@@ -70,7 +70,7 @@ Or just download the dist file:
 ```
 var element = document.querySelector('#element');
 
-Var options = {
+var options = {
 	active: true
 }
 

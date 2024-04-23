@@ -1,8 +1,8 @@
 {
-  "name": "resizable",
+  "name": "set-resizable",
   "description": "Advanced resize for images and HTML elements.",
   "version": "1.0.0",
-  "main": "./src/resizable.js",
+  "main": "./src/set-resizable.js",
   "directories": {
     "example": "examples"
   },
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nievaignacio/resizable.git"
+    "url": "git+https://github.com/nievaignacio/set-resizable.git"
   },
   "author": "Ignacio Nieva",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nievaignacio/resizable/issues"
+    "url": "https://github.com/nievaignacio/set-resizable/issues"
   },
-  "homepage": "https://github.com/nievaignacio/resizable#readme",
+  "homepage": "https://github.com/nievaignacio/set-resizable#readme",
   "devDependencies": {
     "@babel/core": "^7.24.4",
     "@babel/preset-env": "^7.24.4",

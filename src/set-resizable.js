@@ -1,7 +1,7 @@
 // for webpack
 
-import "./resizable.css";
-export default function resizable(element, options = {}) {
+import "./set-resizable.css";
+export default function setResizable(element, options = {}) {
 
 // for browser    
 // function resizable(element, options = {}) {

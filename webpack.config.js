@@ -1,11 +1,10 @@
 //https://webpack.js.org/guides/author-libraries/
 
 const path = require('path');
-const package = require('./package.json');
 
 module.exports = {
     mode: 'production',
-    entry: './src/resizable.js',
+    entry: './src/set-resizable.js',
     module: {
         rules: [
             {
@@ -23,10 +22,10 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         globalObject: 'this',
         library: {
-          name: package.name,
+          name: "setResizable",
           type: 'umd',
           export: 'default',
         },
-        filename: 'resizable.min.js',
+        filename: 'set-resizable.min.js',
     },
 };
