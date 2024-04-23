@@ -6,6 +6,8 @@ export default function setResizable(element, options = {}) {
 // for browser    
 // function resizable(element, options = {}) {
 
+    if(!(element instanceof HTMLElement)) return console.error('Element not provided');
+
     var active = options.active;
     var activeEvent = options.activeEvent || "click";
     var info = options.info != null? options.info : true;
