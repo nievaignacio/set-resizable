@@ -10,7 +10,7 @@ A small JS library to convert any HTML element into a resizable element.
 
 ## Demo
 
-Live demo
+[Live demo](https://nievaignacio.github.io/set-resizable/examples/)
 
 ## Instalation
 
@@ -74,7 +74,7 @@ var options = {
 	active: true
 }
 
-setResizable(element, options);
+resizable(element, options);
 ```
 
 ## Options
