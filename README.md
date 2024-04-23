@@ -12,7 +12,7 @@ A small JS library to convert any HTML element into a resizable element.
 
 [Live demo](https://nievaignacio.github.io/set-resizable/examples/)
 
-<a href="https://stackblitz.com/edit/js-vixsu9?file=index.js">
+<a href="https://stackblitz.com/edit/vitejs-vite-zkjgpr?file=main.js">
   <img
     width="160"
     alt="Open in StackBlitz"
