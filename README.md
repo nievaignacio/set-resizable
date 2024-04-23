@@ -26,9 +26,7 @@ A small JS library to convert any HTML element into a resizable element.
 $ npm install set-resizable --save
 ```
 
-or just download the dist file:
-
-[set-resizable.min.js](https://github.com/nievaignacio/resizable/tree/main/dist)
+or just download the dist file: [set-resizable.min.js](https://github.com/nievaignacio/resizable/tree/main/dist)
 
 ## Usage
 
