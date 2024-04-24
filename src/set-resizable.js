@@ -70,43 +70,43 @@ export default function setResizable(element, options = {}) {
     var x, y, w, h, r = 0;
 
 
-    function startResize(event){
-        x = event.clientX;
-        y = event.clientY;
+    function startResize(className, clientX, clientY){
+        x = clientX;
+        y = clientY;
         w = frame.offsetWidth;
         h = frame.offsetHeight;
         r = w / h;
-        selected = event.target.className;
+        selected = className;
         if(display=="table") element.style.position = "absolute";
     }
 
-    function onResize(event){
+    function onResize(clientX, clientY){
         if (selected) {
 
             if(nodes)frame.querySelector('.control').classList.remove('nodes');
            
             if (selected.indexOf("e")>-1) {
-                frame.style.width = (w + event.clientX - x) + "px";
+                frame.style.width = (w + clientX - x) + "px";
                 if (shift) frame.style.height = (frame.offsetWidth / r) + "px";
             }
             if (selected.indexOf("s")>-1) {
-                frame.style.height = (h + event.clientY - y) + "px";
+                frame.style.height = (h + clientY - y) + "px";
                 if (shift) frame.style.width = (frame.offsetHeight * r) + "px";
             }
             if (selected.indexOf("n")>-1) {
-                frame.style.height = (h - event.clientY + y) + "px";
-                if(frame.style.height>minSize) frame.querySelector('.control').style.top = (event.clientY - y) + "px";
+                frame.style.height = (h - clientY + y) + "px";
+                frame.querySelector('.control').style.top = (clientY - y) + "px";
                 if (shift) {
                     frame.style.width = (frame.offsetHeight * r) + "px";
-                    if(frame.style.width>minSize) frame.querySelector('.control').style.left = (event.clientY - y) * r + "px";
+                    frame.querySelector('.control').style.left = (clientY - y) * r + "px";
                 }
             }
             if (selected.indexOf("w")>-1) {
-                frame.style.width = (w - event.clientX + x) + "px";
-                if(frame.style.width>minSize) frame.querySelector('.control').style.left = (event.clientX - x) + "px";
+                frame.style.width = (w - clientX + x) + "px";
+                frame.querySelector('.control').style.left = (clientX - x) + "px";
                 if (shift) {
                     frame.style.height = (frame.offsetWidth / r) + "px";
-                    if(frame.style.height>minSize) frame.querySelector('.control').style.top = (event.clientX - x) / r + "px";
+                    frame.querySelector('.control').style.top = (clientX - x) / r + "px";
                 }
             }
 
@@ -147,12 +147,12 @@ export default function setResizable(element, options = {}) {
     });
 
     frame.onmousedown = function (event) {
-        startResize(event);
+        startResize(event.target.className, event.clientX, event.clientY);
     }
 
     document.addEventListener('mousemove', function (event) {
         event.preventDefault();
-        onResize(event);
+        onResize(event.clientX, event.clientY);
     });
 
     document.addEventListener('mouseup', function (event) {
@@ -160,12 +160,12 @@ export default function setResizable(element, options = {}) {
     });
 
     frame.ontouchstart = function (event) {
-        startResize(event);
+        startResize(e.targetTouches[0].target.className, event.touches[0].clientX, event.touches[0].clientY);
     }
 
     document.addEventListener('touchmove', function (event) {
         event.preventDefault();
-        onResize(event);
+        onResize(event.touches[0].clientX, event.touches[0].clientY);
     });
 
     document.addEventListener('touchend', function (event) {
