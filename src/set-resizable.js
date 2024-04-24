@@ -164,8 +164,12 @@ export default function setResizable(element, options = {}) {
     }
 
     document.addEventListener('touchmove', function (event) {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+        }
         onResize(event.touches[0].clientX, event.touches[0].clientY);
-    });
+    }, true);
 
     document.addEventListener('touchend', function (event) {
         endResize(event);
