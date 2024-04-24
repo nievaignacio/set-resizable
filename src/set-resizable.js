@@ -160,11 +160,10 @@ export default function setResizable(element, options = {}) {
     });
 
     frame.ontouchstart = function (event) {
-        startResize(e.targetTouches[0].target.className, event.touches[0].clientX, event.touches[0].clientY);
+        startResize(event.targetTouches[0].target.className, event.touches[0].clientX, event.touches[0].clientY);
     }
 
     document.addEventListener('touchmove', function (event) {
-        event.preventDefault();
         onResize(event.touches[0].clientX, event.touches[0].clientY);
     });
 
