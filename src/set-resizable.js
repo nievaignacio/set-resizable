@@ -19,6 +19,8 @@ export default function setResizable(element, options = {}) {
     var display = window.getComputedStyle(element, null).display;
     if(display == "inline") display = "inline-block";    
 
+    var position = element.style.position;
+
     var frame = document.createElement('div');
     frame.classList.add("resizable"); // add class styles
 
@@ -33,7 +35,7 @@ export default function setResizable(element, options = {}) {
         element.replaceWith(frame);
 
         frame.innerHTML = `
-            <table ${nodes?"class='nodes'":""}>
+            <table class='control ${nodes?"nodes":""}'>
                 <tr>
                     <td class="n w"></td>
                     <td class="n"></td>
@@ -75,10 +77,13 @@ export default function setResizable(element, options = {}) {
         h = frame.offsetHeight;
         r = w / h;
         selected = event.target.className;
+        element.style.position = "absolute";
     }
 
     function onResize(event){
         if (selected) {
+
+            if(nodes)frame.querySelector('.control').classList.remove('nodes');
            
             if (selected.indexOf("e")>-1) {
                 frame.style.width = (w + event.clientX - x) + "px";
@@ -90,39 +95,48 @@ export default function setResizable(element, options = {}) {
             }
             if (selected.indexOf("n")>-1) {
                 frame.style.height = (h - event.clientY + y) + "px";
-                frame.querySelector('table').style.top = (event.clientY - y) + "px";
+                frame.querySelector('.control').style.top = (event.clientY - y) + "px";
+                frame.querySelector('.control').style.marginTop = -(event.clientY - y) + "px";
                 if (shift) {
                     if (shift)
                         frame.style.width = (frame.offsetHeight * r) + "px";
-                    frame.querySelector('table').style.left = (event.clientY - y) * r + "px";
+                    frame.querySelector('.control').style.left = (event.clientY - y) * r + "px";
+                    frame.querySelector('.control').style.marginLeft = -(event.clientY - y) * r + "px";
                 }
             }
             if (selected.indexOf("w")>-1) {
                 frame.style.width = (w - event.clientX + x) + "px";
-                frame.querySelector('table').style.left = (event.clientX - x) + "px";
+                frame.querySelector('.control').style.left = (event.clientX - x) + "px";
+                frame.querySelector('.control').style.marginLeft = -(event.clientY - y) * r + "px";
                 if (shift) {
                     if (shift)
                         frame.style.height = (frame.offsetWidth / r) + "px";
-                    frame.querySelector('table').style.top = (event.clientX - x) / r + "px";
+                    frame.querySelector('.control').style.top = (event.clientX - x) / r + "px";
+                    frame.querySelector('.control').style.marginTop = -(event.clientY - y) + "px";
                 }
             }
 
             if(info){
                 info = `<span class='info'> ${frame.offsetWidth} &#215;  ${frame.offsetHeight} px</span>`;
-                frame.querySelector('table .c').innerHTML = info;
+                frame.querySelector('.control .c').innerHTML = info;
             } 
+            
         }
     }
 
-    function stopResize(event){
+    function endResize(event){
         if (selected) {
             selected = false;
-            frame.querySelector('table').style.top = 0 + "px";
-            frame.querySelector('table').style.left = 0 + "px";
+            if(nodes) frame.querySelector('.control').classList.add('nodes');
+            frame.querySelector('.control').style.top = 0 + "px";
+            frame.querySelector('.control').style.left = 0 + "px";
+            frame.querySelector('.control').style.marginLeft = 0 + "px";
+            frame.querySelector('.control').style.marginTop = 0 + "px";
             element.style.boxSizing = 'border-box';
             element.style.overflow = overflow;
             element.style.width = frame.offsetWidth + "px";
             element.style.height = frame.offsetHeight + "px";
+            element.style.position = position;
         }
     }
 
@@ -150,7 +164,7 @@ export default function setResizable(element, options = {}) {
     });
 
     document.addEventListener('mouseup', function (event) {
-        stopResize(event);
+        endResize(event);
     });
 
     frame.ontouchstart = function (event) {
@@ -163,7 +177,7 @@ export default function setResizable(element, options = {}) {
     });
 
     document.addEventListener('touchend', function (event) {
-        stopResize(event);
+        endResize(event);
     });
 
     document.addEventListener('click', function (event) {
