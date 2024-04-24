@@ -56,7 +56,42 @@
 
 .resizable table td {
     padding: 5px;
+    text-align: center;
 }
+
+
+/* Nodes */
+
+.resizable table.nodes td::after{
+    content:"";
+    display:inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: var(--resizable-color);
+    position: absolute;
+}
+
+.resizable table.nodes td.c::after{
+    display: none;
+}
+
+.resizable table.nodes td.w::after{
+    margin-left: -10px;
+}
+
+.resizable table.nodes td.n::after{
+    margin-top: -10px;
+}
+
+.resizable table.nodes td.e::after{
+    margin-right: -10px;
+}
+
+.resizable table.nodes td.s::after{
+    margin-bottom: -10px;
+}
+
 
 
 /* Debug Styles */

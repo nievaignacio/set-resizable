@@ -14,6 +14,7 @@ export default function setResizable(element, options = {}) {
     var color = options.color || "Blue";
     var minSize = options.minSize || "40px";
     var overflow = options.overflow || "auto";
+    var nodes = options.nodes != null? options.nodes : true;
 
     var display = window.getComputedStyle(element, null).display;
     if(display == "inline") display = "inline-block";    
@@ -32,7 +33,7 @@ export default function setResizable(element, options = {}) {
         element.replaceWith(frame);
 
         frame.innerHTML = `
-            <table>
+            <table ${nodes?"class='nodes'":""}>
                 <tr>
                     <td class="n w"></td>
                     <td class="n"></td>
@@ -67,10 +68,7 @@ export default function setResizable(element, options = {}) {
     var x, y, w, h, r = 0;
 
 
-    frame.onmousedown = function (event) {
-        //event.preventDefault();
-        //event.stopPropagation();
-        //   console.log(event);
+    function startResize(event){
         x = event.clientX;
         y = event.clientY;
         w = frame.offsetWidth;
@@ -79,21 +77,7 @@ export default function setResizable(element, options = {}) {
         selected = event.target.className;
     }
 
-    document.addEventListener('keydown', function (event) {
-        if (event.shiftKey) {
-            shift = true;
-        }
-    });
-
-    document.addEventListener('keyup', function (event) {
-        if (event.key == "Shift") {
-            shift = false;
-        }
-    });
-
-    document.addEventListener('mousemove', function (event) {
-        event.preventDefault();
-
+    function onResize(event){
         if (selected) {
            
             if (selected.indexOf("e")>-1) {
@@ -128,10 +112,9 @@ export default function setResizable(element, options = {}) {
                 frame.querySelector('table .c').innerHTML = info;
             } 
         }
+    }
 
-    });
-
-    document.addEventListener('mouseup', function (event) {
+    function stopResize(event){
         if (selected) {
             selected = false;
             frame.querySelector('table').style.top = 0 + "px";
@@ -141,6 +124,46 @@ export default function setResizable(element, options = {}) {
             element.style.width = frame.offsetWidth + "px";
             element.style.height = frame.offsetHeight + "px";
         }
+    }
+
+
+
+    document.addEventListener('keydown', function (event) {
+        if (event.shiftKey) {
+            shift = true;
+        }
+    });
+
+    document.addEventListener('keyup', function (event) {
+        if (event.key == "Shift") {
+            shift = false;
+        }
+    });
+
+    frame.onmousedown = function (event) {
+        startResize(event);
+    }
+
+    document.addEventListener('mousemove', function (event) {
+        event.preventDefault();
+        onResize(event);
+    });
+
+    document.addEventListener('mouseup', function (event) {
+        stopResize(event);
+    });
+
+    frame.ontouchstart = function (event) {
+        startResize(event);
+    }
+
+    document.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+        onResize(event);
+    });
+
+    document.addEventListener('touchend', function (event) {
+        stopResize(event);
     });
 
     document.addEventListener('click', function (event) {
