@@ -169,7 +169,7 @@ export default function setResizable(element, options = {}) {
             event.stopImmediatePropagation();
         }
         onResize(event.touches[0].clientX, event.touches[0].clientY);
-    }, true);
+    }, { passive: false });
 
     document.addEventListener('touchend', function (event) {
         endResize(event);

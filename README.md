@@ -7,6 +7,7 @@ A small JS library to convert any HTML element into a resizable element.
 * Vanilla JS
 * Support images
 * Support Shift key to keep ratio
+* Support touch events
 
 ## Demos
 
