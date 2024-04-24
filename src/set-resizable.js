@@ -77,7 +77,7 @@ export default function setResizable(element, options = {}) {
         h = frame.offsetHeight;
         r = w / h;
         selected = event.target.className;
-        element.style.position = "absolute";
+        if(display=="table") element.style.position = "absolute";
     }
 
     function onResize(event){
@@ -95,24 +95,18 @@ export default function setResizable(element, options = {}) {
             }
             if (selected.indexOf("n")>-1) {
                 frame.style.height = (h - event.clientY + y) + "px";
-                frame.querySelector('.control').style.top = (event.clientY - y) + "px";
-                frame.querySelector('.control').style.marginTop = -(event.clientY - y) + "px";
+                if(frame.style.height>minSize) frame.querySelector('.control').style.top = (event.clientY - y) + "px";
                 if (shift) {
-                    if (shift)
-                        frame.style.width = (frame.offsetHeight * r) + "px";
-                    frame.querySelector('.control').style.left = (event.clientY - y) * r + "px";
-                    frame.querySelector('.control').style.marginLeft = -(event.clientY - y) * r + "px";
+                    frame.style.width = (frame.offsetHeight * r) + "px";
+                    if(frame.style.width>minSize) frame.querySelector('.control').style.left = (event.clientY - y) * r + "px";
                 }
             }
             if (selected.indexOf("w")>-1) {
                 frame.style.width = (w - event.clientX + x) + "px";
-                frame.querySelector('.control').style.left = (event.clientX - x) + "px";
-                frame.querySelector('.control').style.marginLeft = -(event.clientY - y) * r + "px";
+                if(frame.style.width>minSize) frame.querySelector('.control').style.left = (event.clientX - x) + "px";
                 if (shift) {
-                    if (shift)
-                        frame.style.height = (frame.offsetWidth / r) + "px";
-                    frame.querySelector('.control').style.top = (event.clientX - x) / r + "px";
-                    frame.querySelector('.control').style.marginTop = -(event.clientY - y) + "px";
+                    frame.style.height = (frame.offsetWidth / r) + "px";
+                    if(frame.style.height>minSize) frame.querySelector('.control').style.top = (event.clientX - x) / r + "px";
                 }
             }
 
@@ -130,8 +124,6 @@ export default function setResizable(element, options = {}) {
             if(nodes) frame.querySelector('.control').classList.add('nodes');
             frame.querySelector('.control').style.top = 0 + "px";
             frame.querySelector('.control').style.left = 0 + "px";
-            frame.querySelector('.control').style.marginLeft = 0 + "px";
-            frame.querySelector('.control').style.marginTop = 0 + "px";
             element.style.boxSizing = 'border-box';
             element.style.overflow = overflow;
             element.style.width = frame.offsetWidth + "px";
