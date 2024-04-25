@@ -50,7 +50,7 @@ var options = {
 	active: true
 }
 
-setResizable(element, options);
+new setResizable(element, options);
 ```
 
 **Script tag:**
@@ -67,7 +67,7 @@ setResizable(element, options);
             active: true
         }
         
-   		setResizable(element, options);
+   		new setResizable(element, options);
   </script>
 </html>
 ```
@@ -84,3 +84,15 @@ setResizable(element, options);
 | minSize     | "40px"  | Minimun value for width and height resize.          |
 | overflow     | "auto"  | Set CSS overflow property for element.       |
 
+## Methods
+
+| Name   | Parameters | Description                                         |
+| activate      | none | Enable resizing                                 |
+| resize      | (width,height) | Apply resizing                                 |
+
+
+## Events
+
+
+| Name   | Description                                         |
+| onresize      | Retrurn object with {newWidth,newHeight} on end resize.                                  |

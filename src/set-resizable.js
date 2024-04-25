@@ -1,185 +1,222 @@
 // for webpack
 
 import "./set-resizable.css";
-export default function setResizable(element, options = {}) {
+export default class setResizable {
 
-// for browser    
-// function resizable(element, options = {}) {
+    constructor(element, options = {}) {
 
-    if(!(element instanceof HTMLElement)) return console.error('Element not provided');
+        if (!(element instanceof HTMLElement)) return console.error('Element not provided');
 
-    var active = options.active;
-    var activeEvent = options.activeEvent || "click";
-    var info = options.info != null? options.info : true;
-    var color = options.color || "Blue";
-    var minSize = options.minSize || "40px";
-    var overflow = options.overflow || "auto";
-    var nodes = options.nodes != null? options.nodes : true;
+        this.element = element;
 
-    var display = window.getComputedStyle(element, null).display;
-    if(display == "inline") display = "inline-block";    
+        this.options = Object.assign({
+            active: false,
+            activeEvent: 'click',
+            color: "Blue",
+            info: true,
+            minSize: "40px",
+            overflow: "auto",
+            nodes: true,
 
-    var position = element.style.position;
+        }, options);
 
-    var frame = document.createElement('div');
-    frame.classList.add("resizable"); // add class styles
+        this.data = {
+            x: 0,
+            y: 0,
+            w: 0,
+            h: 0,
+            r: 0,
+            shift: false,
+            selected: "",
+            position: this.element.style.position,
+            display: window.getComputedStyle(element, null).display != "inline" ? window.getComputedStyle(element, null).display : "inline-block",
+        }
 
-    element.addEventListener(activeEvent, function () {
+        this.activeElement = document.createElement('div');
+        this.activeElement.classList.add("resizable"); // add class styles
 
-        document.querySelector(':root').style.setProperty('--resizable-color', color);
-        document.querySelector(':root').style.setProperty('--resizable-display', display);
-        document.querySelector(':root').style.setProperty('--resizable-min-size', minSize);
+        this.element.addEventListener(this.options.activeEvent, this.activate.bind(this));
 
-        if(info) info = `<span class='info'> ${element.offsetWidth} &#215;  ${element.offsetHeight} px</span>`;
+        if (this.options.active) {
+            this.activate();
+            // this.element.dispatchEvent(new Event(this.options.activeEvent));
+            // this.element.dispatchEvent(new Event('mousedown'));
+            //this.data.selected = false;
+        }
 
-        element.replaceWith(frame);
 
-        frame.innerHTML = `
-            <table class='control ${nodes?"nodes":""}'>
-                <tr>
-                    <td class="n w"></td>
-                    <td class="n"></td>
-                    <td class="n e"></td>
-                </tr>
-                <tr>
-                    <td class="w"></td>
-                    <td class="c">${info}</td>
-                    <td class="e"></td>
-                </tr>
-                <tr>
-                    <td class="s w"></td>
-                    <td class="s"></td>
-                    <td class="s e"></td>
-                </tr>
-            </table>
-        `;
+        document.addEventListener('keydown', function (event) {
+            if (event.shiftKey) {
+                this.data.shift = true;
+            }
+        });
 
-        frame.prepend(element);
-        
-        frame.style.width = element.offsetWidth + "px";
-        frame.style.height = element.offsetHeight + "px";
+        document.addEventListener('keyup', function (event) {
+            if (event.key == "Shift") {
+                this.data.shift = false;
+            }
+        });
 
-    });
+        this.activeElement.onmousedown = (event) => this.#onselect(event);
+         // this.activeElement.ontouchstart = function (event) {
+        //     startResize(event.targetTouches[0].target.className, event.touches[0].clientX, event.touches[0].clientY);
+        // }
 
-    if(active) {
-        element.dispatchEvent(new Event(activeEvent));
-        active = false;
+
+        document.addEventListener('mousemove', this.#onresize.bind(this));
+        document.addEventListener('touchmove', this.#onresize.bind(this));
+
+        document.addEventListener('mouseup', this.resize.bind(this));
+        document.addEventListener('touchend', this.resize.bind(this));
+     
+
+        document.addEventListener('click',  this.deactivate.bind(this));
+
     }
 
-    var selected, shift = false;
-    var x, y, w, h, r = 0;
 
+    activate() {
 
-    function startResize(className, clientX, clientY){
-        x = clientX;
-        y = clientY;
-        w = frame.offsetWidth;
-        h = frame.offsetHeight;
-        r = w / h;
-        selected = className;
-        if(display=="table") element.style.position = "absolute";
+        document.querySelector(':root').style.setProperty('--resizable-color', this.options.color);
+        document.querySelector(':root').style.setProperty('--resizable-display', this.data.display);
+        document.querySelector(':root').style.setProperty('--resizable-min-size', this.options.minSize);
+
+        let info = "";
+
+        if (this.options.info) info = `<span class='info'> ${this.element.offsetWidth} &#215;  ${this.element.offsetHeight} px</span>`;
+
+        this.element.replaceWith(this.activeElement);
+
+        this.activeElement.innerHTML = `
+        <table class='control ${this.options.nodes ? "nodes" : ""}'>
+            <tr>
+                <td class="n w"></td>
+                <td class="n"></td>
+                <td class="n e"></td>
+            </tr>
+            <tr>
+                <td class="w"></td>
+                <td class="c">${info}</td>
+                <td class="e"></td>
+            </tr>
+            <tr>
+                <td class="s w"></td>
+                <td class="s"></td>
+                <td class="s e"></td>
+            </tr>
+        </table>
+    `;
+
+        this.activeElement.prepend(this.element);
+
+        this.activeElement.style.width = this.element.offsetWidth + "px";
+        this.activeElement.style.height = this.element.offsetHeight + "px";
+
+        this.data.w = this.element.offsetWidth;
+        this.data.h = this.element.offsetHeight;
+        //this.data.selected = true;
+
     }
 
-    function onResize(clientX, clientY){
-        if (selected) {
-
-            if(nodes)frame.querySelector('.control').classList.remove('nodes');
-           
-            if (selected.indexOf("e")>-1) {
-                frame.style.width = (w + clientX - x) + "px";
-                if (shift) frame.style.height = (frame.offsetWidth / r) + "px";
-            }
-            if (selected.indexOf("s")>-1) {
-                frame.style.height = (h + clientY - y) + "px";
-                if (shift) frame.style.width = (frame.offsetHeight * r) + "px";
-            }
-            if (selected.indexOf("n")>-1) {
-                frame.style.height = (h - clientY + y) + "px";
-                frame.querySelector('.control').style.top = (clientY - y) + "px";
-                if (shift) {
-                    frame.style.width = (frame.offsetHeight * r) + "px";
-                    frame.querySelector('.control').style.left = (clientY - y) * r + "px";
-                }
-            }
-            if (selected.indexOf("w")>-1) {
-                frame.style.width = (w - clientX + x) + "px";
-                frame.querySelector('.control').style.left = (clientX - x) + "px";
-                if (shift) {
-                    frame.style.height = (frame.offsetWidth / r) + "px";
-                    frame.querySelector('.control').style.top = (clientX - x) / r + "px";
-                }
-            }
-
-            if(info){
-                info = `<span class='info'> ${frame.offsetWidth} &#215;  ${frame.offsetHeight} px</span>`;
-                frame.querySelector('.control .c').innerHTML = info;
-            } 
-            
+    deactivate(event){
+        if (!this.activeElement.contains(event.target)) {
+            this.activeElement.replaceWith(this.element);
         }
     }
 
-    function endResize(event){
-        if (selected) {
-            selected = false;
-            if(nodes) frame.querySelector('.control').classList.add('nodes');
-            frame.querySelector('.control').style.top = 0 + "px";
-            frame.querySelector('.control').style.left = 0 + "px";
-            element.style.boxSizing = 'border-box';
-            element.style.overflow = overflow;
-            element.style.width = frame.offsetWidth + "px";
-            element.style.height = frame.offsetHeight + "px";
-            element.style.position = position;
-        }
+    #onselect(event) {
+        this.data.x = event.clientX;
+        this.data.y = event.clientY;
+        this.data.w = this.activeElement.offsetWidth;
+        this.data.h = this.activeElement.offsetHeight;
+        this.data.r = this.data.w / this.data.h;
+        this.data.selected = event.target.className;
+        if (this.data.display == "table") this.element.style.position = "absolute";
     }
 
-
-
-    document.addEventListener('keydown', function (event) {
-        if (event.shiftKey) {
-            shift = true;
-        }
-    });
-
-    document.addEventListener('keyup', function (event) {
-        if (event.key == "Shift") {
-            shift = false;
-        }
-    });
-
-    frame.onmousedown = function (event) {
-        startResize(event.target.className, event.clientX, event.clientY);
-    }
-
-    document.addEventListener('mousemove', function (event) {
+    #onresize(event) {
         event.preventDefault();
-        onResize(event.clientX, event.clientY);
-    });
+        if (this.data.selected) {
 
-    document.addEventListener('mouseup', function (event) {
-        endResize(event);
-    });
+            if (this.options.nodes) this.activeElement.querySelector('.control').classList.remove('nodes');
 
-    frame.ontouchstart = function (event) {
-        startResize(event.targetTouches[0].target.className, event.touches[0].clientX, event.touches[0].clientY);
+            if (this.data.selected.indexOf("e") > -1) {
+                this.activeElement.style.width = (this.data.w + event.clientX - this.data.x) + "px";
+                if (this.data.shift) this.activeElement.style.height = (this.activeElement.offsetWidth / r) + "px";
+            }
+            if (this.data.selected.indexOf("s") > -1) {
+                this.activeElement.style.height = (this.data.h + event.clientY - this.data.y) + "px";
+                if (this.data.shift) this.activeElement.style.width = (this.activeElement.offsetHeight * r) + "px";
+            }
+            if (this.data.selected.indexOf("n") > -1) {
+                this.activeElement.style.height = (this.data.h - event.clientY + this.data.y) + "px";
+                this.activeElement.querySelector('.control').style.top = (event.clientY - this.data.y) + "px";
+                if (this.data.shift) {
+                    this.activeElement.style.width = (this.activeElement.offsetHeight * this.data.r) + "px";
+                    this.activeElement.querySelector('.control').style.left = (event.clientY - this.data.y) * this.data.r + "px";
+                }
+            }
+            if (this.data.selected.indexOf("w") > -1) {
+                this.activeElement.style.width = (this.data.w - event.clientX + this.data.x) + "px";
+                this.activeElement.querySelector('.control').style.left = (event.clientX - this.data.x) + "px";
+                if (this.data.shift) {
+                    this.activeElement.style.height = (this.activeElement.offsetWidth / this.data.r) + "px";
+                    this.activeElement.querySelector('.control').style.top = (event.clientX - this.data.x) / this.data.r + "px";
+                }
+            }
+
+            this.#updateInfo();
+
+            // if (typeof this.onresize == "function"){
+            //     this.onresize({newWidth: this.activeElement.offsetWidth, newHeight: this.activeElement.offsetHeight});
+            // } 
+
+        }
     }
 
-    document.addEventListener('touchmove', function (event) {
-        if (event.touches.length > 1) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-        }
-        onResize(event.touches[0].clientX, event.touches[0].clientY);
-    }, { passive: false });
+    #updateInfo(){
+        if (this.options.info) {
+                let info = `<span class='info'> ${this.activeElement.offsetWidth} &#215;  ${this.activeElement.offsetHeight} px</span>`;
+                this.activeElement.querySelector('.control .c').innerHTML = info;
+            }
+    }
 
-    document.addEventListener('touchend', function (event) {
-        endResize(event);
-    });
+    resize(w, h) {
 
-    document.addEventListener('click', function (event) {
-        if (!frame.contains(event.target)) {
-            frame.replaceWith(element);
+        //console.log(w, h);
+
+        if (this.data.selected) {
+
+            if (h) {
+                this.data.w = w;
+                this.data.h = h;
+                this.data.r = this.data.w / this.data.h;
+                this.activeElement.style.width = w + "px";
+                this.activeElement.style.height = h + "px";
+            }
+
+            if (this.options.nodes) this.activeElement.querySelector('.control').classList.add('nodes');
+            this.activeElement.querySelector('.control').style.top = 0 + "px";
+            this.activeElement.querySelector('.control').style.left = 0 + "px";
+
+            this.element.style.boxSizing = 'border-box';
+            this.element.style.overflow = this.options.overflow;
+            this.element.style.width = this.activeElement.offsetWidth + "px";
+            this.element.style.height = this.activeElement.offsetHeight + "px";
+            this.element.style.position = this.data.position;
+
+            this.#updateInfo();
+
+            if (this.activeElement.contains(w.target) && typeof this.onresize == "function"){
+                this.onresize({newWidth: this.activeElement.offsetWidth, newHeight: this.activeElement.offsetHeight});
+            } 
+
+            this.data.selected = false;
+
         }
-    });
+
+    }
+
+
 
 }
-

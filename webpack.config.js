@@ -3,7 +3,7 @@
 const path = require('path');
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: './src/set-resizable.js',
     module: {
         rules: [
