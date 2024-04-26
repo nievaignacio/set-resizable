@@ -96,7 +96,7 @@ var resisable = new Resizable(element, options);
 
 | Name     | Description                                             |
 | -------- | ------------------------------------------------------- |
-| onresize | Retrurn object with {newWidth,newHeight} on end resize. |
+| onresize | Returns an object with the new width and new height upon completion of the resize. |
 
 #### Example
 
