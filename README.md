@@ -1,3 +1,5 @@
+![npm](https://img.shields.io/npm/v/@mdxeditor/editor)
+
 # Set Resizable
 
 A small JS library to convert any HTML element into a resizable element.
