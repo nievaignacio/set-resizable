@@ -52,7 +52,7 @@ var options = {
 	active: true
 }
 
-var resisable = new Resizable(element, options);
+var resizable = new Resizable(element, options);
 ```
 
 **Script tag:**
@@ -69,7 +69,7 @@ var resisable = new Resizable(element, options);
             active: true
         }
         
-        var resisable = new Resizable(element, options);
+        var resizable = new Resizable(element, options);
   </script>
 </html>
 ```
