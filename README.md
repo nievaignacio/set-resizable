@@ -1,4 +1,4 @@
-# setResizable()
+# Set Resizable
 
 A small JS library to convert any HTML element into a resizable element.
 
@@ -42,7 +42,7 @@ or just download the dist file: [set-resizable.min.js](https://github.com/nievai
 **ES6:**
 
 ```js
-import setResizable from 'set-resizable';
+import Resizable from 'set-resizable';
 
 var element = document.querySelector('#element');
 
@@ -50,7 +50,7 @@ var options = {
 	active: true
 }
 
-new setResizable(element, options);
+var resisable = new Resizable(element, options);
 ```
 
 **Script tag:**
@@ -67,7 +67,7 @@ new setResizable(element, options);
             active: true
         }
         
-   		new setResizable(element, options);
+        var resisable = new Resizable(element, options);
   </script>
 </html>
 ```
@@ -84,15 +84,34 @@ new setResizable(element, options);
 | minSize     | "40px"  | Minimun value for width and height resize.          |
 | overflow     | "auto"  | Set CSS overflow property for element.       |
 
-## Methods
+## Public methods
 
-| Name   | Parameters | Description                                         |
-| activate      | none | Enable resizing                                 |
-| resize      | (width,height) | Apply resizing                                 |
-
-
-## Events
+| Name     | Parameters     | Description                          |
+| -------- | -------------- | ------------------------------------ |
+| activate | void           | Enable resizing                      |
+| resize   | (width,height) | Apply resizing with input parameters |
 
 
-| Name   | Description                                         |
-| onresize      | Retrurn object with {newWidth,newHeight} on end resize.                                  |
+## Events Callbacks
+
+| Name     | Description                                             |
+| -------- | ------------------------------------------------------- |
+| onresize | Retrurn object with {newWidth,newHeight} on end resize. |
+
+#### Example
+
+```javascript
+var resizable  = new Resizable(document.querySelector('#image'));
+
+console.log(resizable);
+
+resizable.activate();
+
+resizable.resize(200,200);
+
+resizable.onresize = function(data) {
+	console.log("onresize", data);
+}
+           
+```
+

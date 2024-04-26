@@ -50,17 +50,20 @@
     <script src="../dist/set-resizable.min.js"></script>
     <script>
 
-        new setResizable(document.querySelector('#image1'), {active:true});
-        new setResizable(document.querySelector('#table'));
-        new setResizable(document.querySelector('#text'));
+        new Resizable(document.querySelector('#image1'), {active:true});
+        new Resizable(document.querySelector('#table'));
+        new Resizable(document.querySelector('#text'));
 
-       var resibable  = new setResizable(document.querySelector('#image2'));
+       var resizable  = new Resizable(document.querySelector('#image2'));
 
-        resibable.activate();
-        resibable.resize(200,200);
+       console.log(resizable);
 
-        resibable.onresize = function(data) {
+       resizable.activate();
+       resizable.resize(200,200);
+
+       resizable.onresize = function(data) {
             console.log("onresize", data);
+            console.log(resizable);
         }
             
 

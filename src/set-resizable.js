@@ -1,7 +1,7 @@
 // for webpack
 
 import "./set-resizable.css";
-export default class setResizable {
+export default class Resizable {
 
     constructor(element, options = {}) {
 
@@ -45,37 +45,35 @@ export default class setResizable {
         }
 
 
-        document.addEventListener('keydown', function (event) {
-            if (event.shiftKey) {
-                this.data.shift = true;
-            }
-        });
-
-        document.addEventListener('keyup', function (event) {
-            if (event.key == "Shift") {
-                this.data.shift = false;
-            }
-        });
-
         this.activeElement.onmousedown = (event) => this.#onselect(event);
-         // this.activeElement.ontouchstart = function (event) {
-        //     startResize(event.targetTouches[0].target.className, event.touches[0].clientX, event.touches[0].clientY);
-        // }
-
+        this.activeElement.ontouchstart =  (event) => this.#onselect(event);
 
         document.addEventListener('mousemove', this.#onresize.bind(this));
         document.addEventListener('touchmove', this.#onresize.bind(this));
 
         document.addEventListener('mouseup', this.resize.bind(this));
         document.addEventListener('touchend', this.resize.bind(this));
-     
 
+        document.addEventListener('keydown', (function (event) {
+            if (event.shiftKey) {
+                this.data.shift = true;
+            }
+        }).bind(this));
+
+        document.addEventListener('keyup', (function (event) {
+            if (event.key == "Shift") {
+                this.data.shift = false;
+            }
+        }).bind(this));
+     
         document.addEventListener('click',  this.deactivate.bind(this));
 
     }
 
 
     activate() {
+
+        this.#deactivateAll();
 
         document.querySelector(':root').style.setProperty('--resizable-color', this.options.color);
         document.querySelector(':root').style.setProperty('--resizable-display', this.data.display);
@@ -122,15 +120,22 @@ export default class setResizable {
         if (!this.activeElement.contains(event.target)) {
             this.activeElement.replaceWith(this.element);
         }
+        
+    }
+
+    #deactivateAll(){
+        document.querySelectorAll(".resizable").forEach(function (item) {
+            item.replaceWith(item.firstChild);
+        });
     }
 
     #onselect(event) {
-        this.data.x = event.clientX;
-        this.data.y = event.clientY;
+        this.data.x = event.clientX || event.touches[0].clientX;
+        this.data.y = event.clientY || event.touches[0].clientY;
         this.data.w = this.activeElement.offsetWidth;
         this.data.h = this.activeElement.offsetHeight;
         this.data.r = this.data.w / this.data.h;
-        this.data.selected = event.target.className;
+        this.data.selected = event.target.className || event.targetTouches[0].target.className;
         if (this.data.display == "table") this.element.style.position = "absolute";
     }
 
@@ -142,11 +147,11 @@ export default class setResizable {
 
             if (this.data.selected.indexOf("e") > -1) {
                 this.activeElement.style.width = (this.data.w + event.clientX - this.data.x) + "px";
-                if (this.data.shift) this.activeElement.style.height = (this.activeElement.offsetWidth / r) + "px";
+                if (this.data.shift) this.activeElement.style.height = (this.activeElement.offsetWidth / this.data.r) + "px";
             }
             if (this.data.selected.indexOf("s") > -1) {
                 this.activeElement.style.height = (this.data.h + event.clientY - this.data.y) + "px";
-                if (this.data.shift) this.activeElement.style.width = (this.activeElement.offsetHeight * r) + "px";
+                if (this.data.shift) this.activeElement.style.width = (this.activeElement.offsetHeight * this.data.r) + "px";
             }
             if (this.data.selected.indexOf("n") > -1) {
                 this.activeElement.style.height = (this.data.h - event.clientY + this.data.y) + "px";

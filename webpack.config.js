@@ -22,7 +22,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         globalObject: 'this',
         library: {
-          name: "setResizable",
+          name: "Resizable",
           type: 'umd',
           export: 'default',
         },
