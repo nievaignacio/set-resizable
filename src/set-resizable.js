@@ -140,33 +140,37 @@ export default class Resizable {
     }
 
     #onresize(event) {
-        event.preventDefault();
+        //event.preventDefault();
+
+        var clientX = event.clientX || event.touches[0].clientX;
+        var clientY = event.clientY || event.touches[0].clientY;
+
         if (this.data.selected) {
 
             if (this.options.nodes) this.activeElement.querySelector('.control').classList.remove('nodes');
 
             if (this.data.selected.indexOf("e") > -1) {
-                this.activeElement.style.width = (this.data.w + event.clientX - this.data.x) + "px";
+                this.activeElement.style.width = (this.data.w + clientX - this.data.x) + "px";
                 if (this.data.shift) this.activeElement.style.height = (this.activeElement.offsetWidth / this.data.r) + "px";
             }
             if (this.data.selected.indexOf("s") > -1) {
-                this.activeElement.style.height = (this.data.h + event.clientY - this.data.y) + "px";
+                this.activeElement.style.height = (this.data.h + clientY - this.data.y) + "px";
                 if (this.data.shift) this.activeElement.style.width = (this.activeElement.offsetHeight * this.data.r) + "px";
             }
             if (this.data.selected.indexOf("n") > -1) {
-                this.activeElement.style.height = (this.data.h - event.clientY + this.data.y) + "px";
-                this.activeElement.querySelector('.control').style.top = (event.clientY - this.data.y) + "px";
+                this.activeElement.style.height = (this.data.h - clientY + this.data.y) + "px";
+                this.activeElement.querySelector('.control').style.top = (clientY - this.data.y) + "px";
                 if (this.data.shift) {
                     this.activeElement.style.width = (this.activeElement.offsetHeight * this.data.r) + "px";
-                    this.activeElement.querySelector('.control').style.left = (event.clientY - this.data.y) * this.data.r + "px";
+                    this.activeElement.querySelector('.control').style.left = (clientY - this.data.y) * this.data.r + "px";
                 }
             }
             if (this.data.selected.indexOf("w") > -1) {
-                this.activeElement.style.width = (this.data.w - event.clientX + this.data.x) + "px";
-                this.activeElement.querySelector('.control').style.left = (event.clientX - this.data.x) + "px";
+                this.activeElement.style.width = (this.data.w - clientX + this.data.x) + "px";
+                this.activeElement.querySelector('.control').style.left = (clientX - this.data.x) + "px";
                 if (this.data.shift) {
                     this.activeElement.style.height = (this.activeElement.offsetWidth / this.data.r) + "px";
-                    this.activeElement.querySelector('.control').style.top = (event.clientX - this.data.x) / this.data.r + "px";
+                    this.activeElement.querySelector('.control').style.top = (clientX - this.data.x) / this.data.r + "px";
                 }
             }
 
