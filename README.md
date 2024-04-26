@@ -1,4 +1,4 @@
-![npm](https://img.shields.io/npm/v/@mdxeditor/editor)
+![npm](https://img.shields.io/npm/v/set-resizable)
 
 # Set Resizable
 
@@ -94,7 +94,7 @@ var resisable = new Resizable(element, options);
 | resize   | (width,height) | Apply resizing with input parameters |
 
 
-## Events Callbacks
+## Callbacks
 
 | Name     | Description                                             |
 | -------- | ------------------------------------------------------- |
