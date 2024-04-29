@@ -119,7 +119,3 @@ resizable.onresize = function(data) {
            
 ```
 
-Issues
-------
-For any bug reports or feature requests please
-[post an issue on GitHub][issues-url].
