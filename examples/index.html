@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resizable</title>
-  
+
 </head>
 
 <body>
@@ -15,11 +15,11 @@
 
     <h2>Image</h2>
 
-    <img id="image1" src="img/64743063.jpg" width="300" height="200"> 
-    <img id="image2" src="img/23534627.jpg" width="200" height="150"> 
+    <img id="image1" class="set-resizable" src="img/64743063.jpg" width="300" height="200">
+    <img id="image2" class="set-resizable" src="img/23534627.jpg" width="200" height="150">
 
     <h2>Div</h2>
-    <div id="text" style="width: 400px; background-color: #ccc; padding:20px;">
+    <div id="text" class="set-resizable" style="width: 300px; background-color: #ccc; padding:20px;">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat adipisci veniam rem accusamus, dolores
             dolorem soluta error voluptas modi cum aliquam earum quibusdam quia in libero delectus ratione, incidunt
             ipsam.</p>
@@ -27,7 +27,7 @@
 
     <h2>Table</h2>
 
-    <table id="table">
+    <table id="table" class="set-resizable">
         <tr>
             <th>Company</th>
             <th>Contact</th>
@@ -44,29 +44,24 @@
             <td>Mexico</td>
         </tr>
     </table>
-    
 
-    
+
+
     <script src="../dist/set-resizable.min.js"></script>
     <script>
 
-        new Resizable(document.querySelector('#image1'), {active:true});
-        new Resizable(document.querySelector('#table'));
-        new Resizable(document.querySelector('#text'));
+        document.querySelectorAll(".set-resizable").forEach(function (item) {
 
-       var resizable  = new Resizable(document.querySelector('#image2'));
+            var resizable = new Resizable(item);
 
-       console.log(resizable);
+            resizable.onresize = function (data) {
+                console.log("onresize", data);
+            }
 
-       resizable.activate();
-       
-       resizable.resize(200,200);
-
-       resizable.onresize = function(data) {
-            console.log("onresize", data);
-            console.log(resizable);
-        }
-            
+            resizable.onactivate = function (data) {
+                console.log("onactivate", data);
+            }
+        });
 
     </script>
 </body>

@@ -49,7 +49,7 @@ export default class Resizable {
         this.activeElement.ontouchstart =  (event) => this.#onselect(event);
 
         document.addEventListener('mousemove', this.#onresize.bind(this));
-        document.addEventListener('touchmove', this.#onresize.bind(this));
+        document.addEventListener('touchmove', this.#onresize.bind(this), {passive: false});
 
         document.addEventListener('mouseup', this.resize.bind(this));
         document.addEventListener('touchend', this.resize.bind(this));
@@ -66,14 +66,14 @@ export default class Resizable {
             }
         }).bind(this));
      
-        document.addEventListener('click',  this.deactivate.bind(this));
+        document.addEventListener('click',  this.#deactivate.bind(this));
 
     }
 
 
     activate() {
 
-        this.#deactivateAll();
+        this.deactivate();
 
         document.querySelector(':root').style.setProperty('--resizable-color', this.options.color);
         document.querySelector(':root').style.setProperty('--resizable-display', this.data.display);
@@ -114,16 +114,20 @@ export default class Resizable {
         this.data.h = this.element.offsetHeight;
         //this.data.selected = true;
 
+        if (typeof this.onactivate == "function"){
+            this.onactivate(this);
+        } 
+
     }
 
-    deactivate(event){
+    #deactivate(event){
         if (!this.activeElement.contains(event.target)) {
             this.activeElement.replaceWith(this.element);
         }
         
     }
 
-    #deactivateAll(){
+    deactivate(){
         document.querySelectorAll(".resizable").forEach(function (item) {
             item.replaceWith(item.firstChild);
         });
@@ -140,7 +144,7 @@ export default class Resizable {
     }
 
     #onresize(event) {
-        //event.preventDefault();
+        event.preventDefault();
 
         var clientX = event.clientX || event.touches[0].clientX;
         var clientY = event.clientY || event.touches[0].clientY;

@@ -1,7 +1,7 @@
 {
   "name": "set-resizable",
   "description": "A small JS library to convert any HTML element into a resizable element.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": "./src/set-resizable.js",
   "directories": {
     "example": "examples"
@@ -14,6 +14,12 @@
     "type": "git",
     "url": "git+https://github.com/nievaignacio/set-resizable.git"
   },
+  "keywords": [
+    "front-End",
+    "vanilla js",
+    "ui",
+    "resize"
+  ],
   "author": "Ignacio Nieva",
   "license": "MIT",
   "bugs": {

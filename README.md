@@ -91,6 +91,7 @@ var resizable = new Resizable(element, options);
 | Name     | Parameters     | Description                          |
 | -------- | -------------- | ------------------------------------ |
 | activate | void           | Enable resizing                      |
+| deactivate | void           | Disable all instances of Resizable |
 | resize   | (width,height) | Apply resizing with input parameters |
 
 
@@ -98,6 +99,7 @@ var resizable = new Resizable(element, options);
 
 | Name     | Description                                             |
 | -------- | ------------------------------------------------------- |
+| onactivate | Returns the activated instance |
 | onresize | Returns an object with the new width and new height upon completion of the resize. |
 
 #### Example
@@ -117,3 +119,7 @@ resizable.onresize = function(data) {
            
 ```
 
+Issues
+------
+For any bug reports or feature requests please
+[post an issue on GitHub][issues-url].
