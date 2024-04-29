@@ -38,9 +38,6 @@ export default class Resizable {
 
     if (this.options.active) {
       this.activate()
-      // this.element.dispatchEvent(new Event(this.options.activeEvent));
-      // this.element.dispatchEvent(new Event('mousedown'));
-      // this.data.selected = false;
     }
 
     this.activeElement.onmousedown = (event) => this.#onselect(event)
@@ -107,7 +104,6 @@ export default class Resizable {
 
     this.data.w = this.element.offsetWidth
     this.data.h = this.element.offsetHeight
-    // this.data.selected = true;
 
     if (typeof this.onactivate === 'function') {
       this.onactivate(this)
@@ -186,7 +182,6 @@ export default class Resizable {
   }
 
   resize (w, h) {
-    // console.log(w, h);
     if (this.data.selected) {
       if (h) {
         this.data.w = w

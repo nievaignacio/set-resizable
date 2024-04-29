@@ -1,4 +1,5 @@
-![npm](https://img.shields.io/npm/v/set-resizable)
+![npm](https://img.shields.io/npm/v/set-resizable) ![npm bundle size](https://img.shields.io/bundlephobia/min/set-resizable)
+
 
 # Set Resizable
 
